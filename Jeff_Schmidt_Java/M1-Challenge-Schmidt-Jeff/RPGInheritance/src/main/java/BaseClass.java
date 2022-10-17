@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class BaseClass {
     private String name;
     private int strength;
@@ -5,37 +7,13 @@ public class BaseClass {
     private int stamina;
     private int speed;
     private int attackPower;
-    private int shieldStrength;
     private boolean running;
     private boolean arrested;
-    private boolean plowing;
-    private boolean harvesting;
 
-
-    //Abilities - arrest another character ==========
-    public void isArresting(BaseClass Character){
-        System.out.println(name + " is arresting " + Character.getName() + ".");
-    }
-    //Abilities - attack another character ==========
     public void isAttacking(BaseClass Character){
-        System.out.println(name + " is attacking " + Character.getName()+ ".");
+        System.out.println(getName()  + " is attacking " + Character.getName() + ".");
     }
     public BaseClass() {
-    }
-
-    public BaseClass(String name, int strength, int health, int stamina, int speed, int attackPower,
-                     int shieldStrength, boolean running, boolean arrested, boolean plowing, boolean harvesting) {
-        this.name = name;
-        this.strength = strength;
-        this.health = health;
-        this.stamina = stamina;
-        this.speed = speed;
-        this.attackPower = attackPower;
-        this.shieldStrength = shieldStrength;
-        this.running = running;
-        this.arrested = arrested;
-        this.plowing = plowing;
-        this.harvesting = harvesting;
     }
 
     public String getName() {
@@ -86,14 +64,6 @@ public class BaseClass {
         this.attackPower = attackPower;
     }
 
-    public int getShieldStrength() {
-        return shieldStrength;
-    }
-
-    public void setShieldStrength(int shieldStrength) {
-        this.shieldStrength = shieldStrength;
-    }
-
     public boolean isRunning() {
         return running;
     }
@@ -110,20 +80,17 @@ public class BaseClass {
         this.arrested = arrested;
     }
 
-    public boolean isPlowing() {
-        return plowing;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BaseClass baseClass = (BaseClass) o;
+        return strength == baseClass.strength && health == baseClass.health && stamina == baseClass.stamina && speed == baseClass.speed && attackPower == baseClass.attackPower && running == baseClass.running && arrested == baseClass.arrested && Objects.equals(name, baseClass.name);
     }
 
-    public void setPlowing(boolean plowing) {
-        this.plowing = plowing;
-    }
-
-    public boolean isHarvesting() {
-        return harvesting;
-    }
-
-    public void setHarvesting(boolean harvesting) {
-        this.harvesting = harvesting;
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, strength, health, stamina, speed, attackPower, running, arrested);
     }
 
     @Override
@@ -135,11 +102,8 @@ public class BaseClass {
                 ", stamina=" + stamina +
                 ", speed=" + speed +
                 ", attackPower=" + attackPower +
-                ", shieldStrength=" + shieldStrength +
                 ", running=" + running +
                 ", arrested=" + arrested +
-                ", plowing=" + plowing +
-                ", harvesting=" + harvesting +
                 '}';
     }
 }
